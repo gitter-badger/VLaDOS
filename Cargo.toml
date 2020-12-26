@@ -1,0 +1,11 @@
+[package]
+name = "vlados"
+version = "0.0.1"
+authors = ["Sean McLoughlin <smclough@protonmail.com>"]
+edition = "2018"
+description = "VLaDOS: The free and open-source SystemVerilog compiler and simulator"
+license = "GPL-3.0-or-later"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
