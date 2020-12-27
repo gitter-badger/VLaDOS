@@ -10,7 +10,6 @@ license = "GPL-3.0-or-later"
 
 [dependencies]
 clap = "2.33.3"
-nom = "6.0.0"
 strum = "0.20.0"
 strum_macros = "0.20.0"
 thiserror = "1.0.22"
