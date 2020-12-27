@@ -6,9 +6,9 @@ use token_type::TokenType;
 
 #[derive(Debug, PartialEq, Clone)]
 pub(crate) struct Token {
-    type_: TokenType,
-    lexeme: String,
-    line: usize,
+    pub type_: TokenType,
+    pub lexeme: String,
+    pub line: usize,
 }
 
 impl Default for Token {
@@ -31,16 +31,26 @@ impl Token {
     }
 
     pub fn build(lexeme: &str, line: usize) -> Result<Self, VLaDOSError> {
-        let type_ = match TokenType::from_str(lexeme) {
-            Ok(type_) => type_,
-            Err(_) => {
-                return Err(VLaDOSError::InvalidToken {
-                    line,
-                    token: lexeme.into(),
-                })
+        let type_ = if Token::is_number_token(lexeme) {
+            TokenType::NumberLiteral
+        } else if lexeme.starts_with('"') {
+            TokenType::StringLiteral
+        } else {
+            match TokenType::from_str(lexeme) {
+                Ok(type_) => type_,
+                Err(_) => {
+                    return Err(VLaDOSError::InvalidToken {
+                        line,
+                        token: lexeme.into(),
+                    })
+                }
             }
         };
         Ok(Token::new(type_, lexeme.to_string(), line))
+    }
+
+    fn is_number_token(lexeme: &str) -> bool {
+        lexeme.parse::<i32>().is_ok() || lexeme.parse::<f64>().is_ok()
     }
 }
 
@@ -52,19 +62,19 @@ mod tests {
     fn token_new() {
         assert_eq!(
             Token {
-                type_: TokenType::Always,
-                lexeme: String::from("always"),
-                line: 3
-            },
-            Token::new(TokenType::Always, String::from("always"), 3)
-        );
-        assert_eq!(
-            Token {
-                type_: TokenType::EndModule,
+                type_: TokenType::Endmodule,
                 lexeme: String::from("endmodule"),
                 line: 27
             },
-            Token::new(TokenType::EndModule, String::from("endmodule"), 27)
+            Token::new(TokenType::Endmodule, String::from("endmodule"), 27)
+        );
+        assert_eq!(
+            Token {
+                type_: TokenType::JoinAny,
+                lexeme: String::from("join_any"),
+                line: 25
+            },
+            Token::new(TokenType::JoinAny, String::from("join_any"), 25)
         );
     }
 
@@ -72,19 +82,47 @@ mod tests {
     fn token_build() {
         assert_eq!(
             Token {
-                type_: TokenType::Always,
-                lexeme: String::from("always"),
-                line: 3
-            },
-            Token::build("always", 3).unwrap()
-        );
-        assert_eq!(
-            Token {
-                type_: TokenType::EndModule,
+                type_: TokenType::Endmodule,
                 lexeme: String::from("endmodule"),
                 line: 27
             },
             Token::build("endmodule", 27).unwrap()
+        );
+        assert_eq!(
+            Token {
+                type_: TokenType::JoinAny,
+                lexeme: String::from("join_any"),
+                line: 25
+            },
+            Token::build("join_any", 25).unwrap()
+        );
+    }
+
+    #[test]
+    fn token_build_literals() {
+        assert_eq!(
+            Token {
+                type_: TokenType::NumberLiteral,
+                lexeme: String::from("23"),
+                line: 2
+            },
+            Token::build("23", 2).unwrap()
+        );
+        assert_eq!(
+            Token {
+                type_: TokenType::NumberLiteral,
+                lexeme: String::from("4.20"),
+                line: 1
+            },
+            Token::build("4.20", 1).unwrap()
+        );
+        assert_eq!(
+            Token {
+                type_: TokenType::StringLiteral,
+                lexeme: String::from(r#""This is a string literal""#),
+                line: 3
+            },
+            Token::build(r#""This is a string literal""#, 3).unwrap()
         );
     }
 }

@@ -1,4 +1,5 @@
 #[derive(Debug, Eq, PartialEq, Clone, EnumString)]
+#[strum(serialize_all = "snake_case")]
 pub(crate) enum TokenType {
     // Single Character Building Blocks
     #[strum(serialize = "`")]
@@ -138,295 +139,170 @@ pub(crate) enum TokenType {
     Comment,
 
     // Keywords: SystemVerilog OOP Constructs
-    #[strum(serialize = "class")]
     Class,
-    #[strum(serialize = "endclass")]
-    EndClass,
-    #[strum(serialize = "interface")]
+    Endclass,
     Interface,
-    #[strum(serialize = "endinterface")]
-    EndInterface,
-    #[strum(serialize = "extends")]
+    Endinterface,
     Extends,
-    #[strum(serialize = "void")]
     Void,
-    #[strum(serialize = "static")]
     Static,
-    #[strum(serialize = "pure")]
     Pure,
-    #[strum(serialize = "virtual")]
     Virtual,
-    #[strum(serialize = "type")]
     Type,
 
     // Keywords: Scope
-    #[strum(serialize = "begin")]
     Begin,
-    #[strum(serialize = "end")]
     End,
 
     // Keywords: Data Types
-    #[strum(serialize = "typedef")]
-    TypeDef,
-    #[strum(serialize = "struct")]
+    Typedef,
     Struct,
-    #[strum(serialize = "union")]
     Union,
-    #[strum(serialize = "packed")]
     Packed,
-    #[strum(serialize = "const")]
     Const,
-    #[strum(serialize = "unsigned")]
     Unsigned,
-    #[strum(serialize = "bit")]
     Bit,
-    #[strum(serialize = "byte")]
     Byte,
-    #[strum(serialize = "int")]
     Int,
-    #[strum(serialize = "longint")]
-    LongInt,
-    #[strum(serialize = "shortint")]
-    ShortInt,
-    #[strum(serialize = "integer")]
+    Longint,
+    Shortint,
     Integer,
-    #[strum(serialize = "real")]
     Real,
-    #[strum(serialize = "longreal")]
-    LongReal,
-    #[strum(serialize = "shortreal")]
-    ShortReal,
-    #[strum(serialize = "reg")]
+    Longreal,
+    Shortreal,
     Reg,
-    #[strum(serialize = "logic")]
     Logic,
-    #[strum(serialize = "time")]
     Time,
-    #[strum(serialize = "string")]
     String,
-    #[strum(serialize = "assign")]
     Assign,
-    #[strum(serialize = "var")]
     Var,
-    #[strum(serialize = "enum")]
-    EnumeratedType,
+    Enum,
 
     // Keywords: Parameters
-    #[strum(serialize = "parameter")]
     Parameter,
-    #[strum(serialize = "localparam")]
-    LocalParam,
-    #[strum(serialize = "specparam")]
-    SpecParam,
-    #[strum(serialize = "defparam")]
-    DefParam,
+    Localparam,
+    Specparam,
+    Defparam,
 
     // Keywords: Nets
-    #[strum(serialize = "nettype")]
-    NetType,
-    #[strum(serialize = "wire")]
+    Nettype,
     Wire,
-    #[strum(serialize = "wand")]
     Wand,
-    #[strum(serialize = "wor")]
     Wor,
-    #[strum(serialize = "uwire")]
-    UWire,
-    #[strum(serialize = "tri")]
+    Uwire,
     Tri,
-    #[strum(serialize = "triand")]
-    TriAnd,
-    #[strum(serialize = "trior")]
-    TriOr,
-    #[strum(serialize = "tri0")]
+    Triand,
+    Trior,
     Tri0,
-    #[strum(serialize = "tri1")]
     Tri1,
-    #[strum(serialize = "trireg")]
-    TriReg,
-    #[strum(serialize = "supply0")]
+    Trireg,
     Supply0,
-    #[strum(serialize = "supply1")]
     Supply1,
-    #[strum(serialize = "interconnect")]
-    InterConnect,
+    Interconnect,
 
     // Keywords: Signal Strength
-    #[strum(serialize = "small")]
     Small,
-    #[strum(serialize = "medium")]
     Medium,
-    #[strum(serialize = "large")]
     Large,
 
     // Keywords: Packages
-    #[strum(serialize = "package")]
     Package,
-    #[strum(serialize = "endpackage")]
-    EndPackage,
-    #[strum(serialize = "import")]
+    Endpackage,
     Import,
 
     // Keywords: Functions
-    #[strum(serialize = "function")]
     Function,
-    #[strum(serialize = "automatic")]
     Automatic,
-    #[strum(serialize = "input")]
     Input,
-    #[strum(serialize = "output")]
     Output,
-    #[strum(serialize = "inout")]
-    InOut,
-    #[strum(serialize = "endfunction")]
-    EndFunction,
-    #[strum(serialize = "return")]
+    Inout,
+    Endfunction,
     Return,
 
     // Keywords: Modules
-    #[strum(serialize = "module")]
     Module,
-    #[strum(serialize = "endmodule")]
-    EndModule,
+    Endmodule,
 
     // Keywords: Tasks
-    #[strum(serialize = "task")]
     Task,
-    #[strum(serialize = "endtask")]
-    EndTask,
+    Endtask,
 
     // Keywords: Configs
-    #[strum(serialize = "config")]
     Config,
-    #[strum(serialize = "endconfig")]
-    EndConfig,
+    Endconfig,
 
     // Keywords: Clocking
-    #[strum(serialize = "posedge")]
-    PosEdge,
-    #[strum(serialize = "negedge")]
-    NegEdge,
-    #[strum(serialize = "edge")]
+    Posedge,
+    Negedge,
     Edge,
-    #[strum(serialize = "always")]
     Always,
-    #[strum(serialize = "always_comb")]
     AlwaysComb,
-    #[strum(serialize = "always_latch")]
     AlwaysLatch,
-    #[strum(serialize = "always_ff")]
-    AlwaysFF,
-    #[strum(serialize = "initial")]
+    AlwaysFf,
     Initial,
 
     // Keywords: Properties
-    #[strum(serialize = "property")]
     Property,
-    #[strum(serialize = "endproperty")]
-    EndProperty,
+    Endproperty,
 
     // Keywords: Program
-    #[strum(serialize = "program")]
     Program,
-    #[strum(serialize = "endprogram")]
-    EndProgram,
+    Endprogram,
 
     // Keywords: Generate
-    #[strum(serialize = "generate")]
     Generate,
-    #[strum(serialize = "endgenerate")]
-    EndGenerate,
+    Endgenerate,
 
     // Keywords: Specify
-    #[strum(serialize = "specify")]
     Specify,
-    #[strum(serialize = "endspecify")]
-    EndSpecify,
+    Endspecify,
 
     // Keywords: Loops
-    #[strum(serialize = "forever")]
     Forever,
-    #[strum(serialize = "repeat")]
     Repeat,
-    #[strum(serialize = "for")]
     For,
-    #[strum(serialize = "foreach")]
-    ForEach,
-    #[strum(serialize = "while")]
+    Foreach,
     While,
-    #[strum(serialize = "do")]
     Do,
-    #[strum(serialize = "break")]
     Break,
-    #[strum(serialize = "continue")]
     Continue,
 
     // Keywords: Conditionals
-    #[strum(serialize = "if")]
     If,
-    #[strum(serialize = "else")]
     Else,
-    #[strum(serialize = "case")]
     Case,
-    #[strum(serialize = "endcase")]
-    EndCase,
-    #[strum(serialize = "casez")]
-    CaseZ,
-    #[strum(serialize = "casex")]
-    CaseX,
-    #[strum(serialize = "unique")]
+    Endcase,
+    Casez,
+    Casex,
     Unique,
-    #[strum(serialize = "unique0")]
     Unique0,
-    #[strum(serialize = "priority")]
     Priority,
-    #[strum(serialize = "matches")]
     Matches,
-    #[strum(serialize = "tagged")]
     Tagged,
 
     // Keywords: Interprocess Communication
-    #[strum(serialize = "semaphore")]
     Semaphore,
-    #[strum(serialize = "mailbox")]
     Mailbox,
-    #[strum(serialize = "wait")]
     Wait,
-    #[strum(serialize = "wait_order")]
     WaitOrder,
-    #[strum(serialize = "event")]
     Event,
-    #[strum(serialize = "fork")]
     Fork,
-    #[strum(serialize = "join_any")]
     JoinAny,
-    #[strum(serialize = "join_none")]
     JoinNone,
-    #[strum(serialize = "join")]
     Join,
 
     // Keywords: Assertions
-    #[strum(serialize = "assert")]
     Assert,
-    #[strum(serialize = "assume")]
     Assume,
-    #[strum(serialize = "restrict")]
     Restrict,
-    #[strum(serialize = "final")]
     Final,
-    #[strum(serialize = "cover")]
     Cover,
 
     // Keywords: Etc.
-    #[strum(serialize = "library")]
     Library,
-    #[strum(serialize = "default")]
     Default,
-    #[strum(serialize = "timeunit")]
-    TimeUnit,
-    #[strum(serialize = "inside")]
+    Timeunit,
     Inside,
-    #[strum(serialize = "dist")]
     Dist,
 
     // Literals

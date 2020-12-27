@@ -40,7 +40,7 @@ impl Scanner {
         Ok(tokens)
     }
 
-    fn scan_token(&mut self) -> Result<Option<Token>, VLaDOSError> {
+    pub(crate) fn scan_token(&mut self) -> Result<Option<Token>, VLaDOSError> {
         let c = self.pop();
         match c {
             '(' | ')' | '{' | '}' | ',' | '.' | '-' | '+' | ';' | '*' => {

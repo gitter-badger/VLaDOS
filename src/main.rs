@@ -4,6 +4,7 @@ extern crate strum;
 extern crate strum_macros;
 extern crate thiserror;
 
+mod ast;
 mod cmdline;
 mod error;
 mod lexer;
