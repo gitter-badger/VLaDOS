@@ -1,4 +1,7 @@
 # VLaDOS
+
+[![Join the chat at https://gitter.im/vlados-compiler/community](https://badges.gitter.im/vlados-compiler/community.svg)](https://gitter.im/vlados-compiler/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 (System)Verilog Language -- a Definitively Open Simulator
 
 VLaDOS is a *very* early (and probably broken) alpha SystemVerilog compiler and 
